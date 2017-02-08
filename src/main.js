@@ -1,3 +1,4 @@
+export * from './assert/';
 export * from './geometry/';
 export * from './dataStruct/';
 export * from './input/';
