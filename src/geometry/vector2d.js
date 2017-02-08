@@ -1,10 +1,12 @@
+import {Point} from './point';
+
 export class Vector2d {
     constructor(x = 0, y = 0) {
         this._x = x;
         this._y = y;
     }
 
-    static vector2dFromAngle(thetaDegrees, length=1) {
+    static createFromAngle(thetaDegrees, length=1) {
         const thetaRadians = thetaDegrees * (Math.PI / 180);
         const v = new Vector2d(
             length * Math.cos(thetaRadians),
