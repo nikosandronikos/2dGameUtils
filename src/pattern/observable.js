@@ -1,35 +1,3 @@
-/*
-WebPack / Babel doesn't seem to support my method of doing mixins, so just using a basic
-class for the moment.
-*/
-
-export class ObservableMixin {
-	constructor() {
-		this.observers = {};
-	}
-
-	addObserver(event, fn, useThis, ctxt) {
-		const boundFn = ctxt === undefined ? fn.bind(useThis) : fn.bind(useThis, ctxt);
-		if (this.observers.hasOwnProperty(event)) {
-			this.observers[event].append(boundFn);
-			return;
-		}
-		this.observers[event] = [boundFn];
-	}
-
-	notifyObservers(event, ...args) {
-		if (!this.observers.hasOwnProperty(event))
-			return;
-
-		for (let observer of this.observers[event]) {
-			observer(...args);
-		}
-	}
-}
-
-/*
-Preferred method:
-
 export const ObservableMixin = superclass => class extends superclass {
 	constructor() {
 		super(...arguments);
@@ -55,7 +23,6 @@ export const ObservableMixin = superclass => class extends superclass {
 		}
 	}
 }
-*/
 
 /**************************************************************************
 	How to use:
