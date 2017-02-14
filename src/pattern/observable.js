@@ -31,7 +31,7 @@ export const ObservableMixin = superclass => class extends superclass {
 */
 
 // Workaround version
-// To me used with ./mixin.js/mixin()
+// To be used with ./mixin.js/mixin()
 export const ObservableMixin = {
 	observers: {},
 	addObserver: function(event, fn, useThis, ctxt) {
