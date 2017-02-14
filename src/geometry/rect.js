@@ -23,6 +23,14 @@ export class Rect {
     get width() {return this.x2 - this.x1;}
     get height() {return this.y2 - this.y1;}
 
+    expand(xMod, yMod) {
+        this.x1 -= xMod;
+        this.x2 += xMod;
+        this.y1 -= yMod;
+        this.y2 += yMod;
+        return this;
+    }
+
     pointIn(x, y) {
         return x >= this.x1 && x <= this.x2 && y >= this.y1 && y <= this.y2;
     }
