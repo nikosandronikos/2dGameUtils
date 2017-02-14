@@ -1,3 +1,8 @@
+/*
+Has issues with Babel.
+See https://github.com/nikosandronikos/2dGameUtils/issues/1
+Workaround follows:
+
 export const ObservableMixin = superclass => class extends superclass {
 	constructor() {
 		super(...arguments);
@@ -15,6 +20,29 @@ export const ObservableMixin = superclass => class extends superclass {
 	}
 
 	notifyObservers(event, ...args) {
+		if (!this.observers.hasOwnProperty(event))
+			return;
+
+		for (let observer of this.observers[event]) {
+			observer(...args);
+		}
+	}
+}
+*/
+
+// Workaround version
+// To me used with ./mixin.js/mixin()
+export const ObservableMixin = {
+	observers: {},
+	addObserver: function(event, fn, useThis, ctxt) {
+		const boundFn = ctxt === undefined ? fn.bind(useThis) : fn.bind(useThis, ctxt);
+		if (this.observers.hasOwnProperty(event)) {
+			this.observers[event].push(boundFn);
+			return;
+		}
+		this.observers[event] = [boundFn];
+	},
+	notifyObservers: function(event, ...args) {
 		if (!this.observers.hasOwnProperty(event))
 			return;
 
