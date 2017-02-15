@@ -55,5 +55,10 @@ export const Keyboard  = {
             Keyboard.keys[keyCode] = false;
             Keyboard.ignoreKeys[keyCode] = true;
         }
+    },
+    resetAllKeys: function() {
+        Keyboard.keys = [];
+        Keyboard.ignoreKeys = [];
+        Keyboard.nKeysDown = 0;
     }
 };
