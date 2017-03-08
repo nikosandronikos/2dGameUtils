@@ -40,8 +40,10 @@ export class Vector2d {
     }
 
     set x(value) {
-        if (value === undefined || isNaN(value))
+        if (value === undefined || isNaN(value)) {
+            console.trace();
             throw 'value is invalid.';
+        }
         this._x = value;
     }
 
@@ -50,8 +52,10 @@ export class Vector2d {
     }
 
     set y(value) {
-        if (value === undefined || isNaN(value))
+        if (value === undefined || isNaN(value)) {
+            console.trace();
             throw 'value is invalid.';
+        }
         this._y = value;
     }
 
