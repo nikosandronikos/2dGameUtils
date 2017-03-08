@@ -27,6 +27,10 @@ export class Vector2d {
         return r; 
     }
 
+    static createFromPoint(p) {
+        return new Vector2d(p.x, p.y);
+    }
+
     static createFromPoints(p1, p2) {
         return new Vector2d(p2.x - p1.x, p2.y - p1.y);
     }
