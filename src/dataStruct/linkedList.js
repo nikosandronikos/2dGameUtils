@@ -96,7 +96,7 @@ export class LinkedList {
     *[Symbol.iterator]() {
         let node = this.head;
         while (node) {
-            yield node;
+            yield node.data;
             node = node.next
         }
     }
