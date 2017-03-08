@@ -1,2 +1,2 @@
 export {ObservableMixin} from './observable';
-export {mixin} from './mixin';
+export {mixin, mixinOnObj} from './mixin';
