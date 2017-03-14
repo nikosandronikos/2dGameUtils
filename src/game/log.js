@@ -32,7 +32,6 @@ export const Log = {
     // init and initNotAsync may seem equivalent, but note that because init
     // is an async function, it returns a Promise. Otherwise, they can be
     // used interchangabely.
-    /*
     init: async function(addr) {
         // Buffer messages until socket connection is established.
         this.write = this._buffer;
@@ -60,10 +59,9 @@ export const Log = {
         this.close = this._closeOpenSocket;
         return true;
     },
-    */
 
     // Version without async/await.
-    // Useful in browsers that don't support await.
+    // Useful in browsers that don't support await (or just get Firefox > 51!)
     initNotAsync: function(addr) {
         this.write = this._buffer;
 
