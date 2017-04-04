@@ -85,8 +85,8 @@ export const Log = {
     _send: function(...messages) {
         for (const m of messages) {
             if (typeof m == 'object') {
-                this.ws.send(`${typeof m}:${m.toString()}`);
-            } else if (typeof m == 'string') {
+                this.ws.send(`${typeof m};${JSON.stringify(m)}`);
+            } else {
                 this.ws.send(m);
             }
         }
