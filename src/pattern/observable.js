@@ -33,8 +33,8 @@ export const ObservableMixin = superclass => class extends superclass {
 // Workaround version
 // To be used with ./mixin.js/mixin()
 export const ObservableMixin = {
-    observers: {},
     addObserver: function(event, fn, useThis, ctxt) {
+        if (this.observers === undefined) this.observers = {};
         const boundFn = ctxt === undefined ? fn.bind(useThis) : fn.bind(useThis, ctxt);
         if (this.observers.hasOwnProperty(event)) {
             this.observers[event].push(boundFn);
@@ -43,7 +43,7 @@ export const ObservableMixin = {
         this.observers[event] = [boundFn];
     },
     notifyObservers: function(event, ...args) {
-        if (!this.observers.hasOwnProperty(event))
+        if (this.observers === undefined || !this.observers.hasOwnProperty(event))
             return;
 
         for (let observer of this.observers[event]) {
