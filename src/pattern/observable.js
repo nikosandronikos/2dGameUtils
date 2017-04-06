@@ -42,6 +42,9 @@ export const ObservableMixin = {
         }
         this.observers[event] = [boundFn];
     },
+    removeObservers: function() {
+        this.observers = {};
+    },
     notifyObservers: function(event, ...args) {
         if (this.observers === undefined || !this.observers.hasOwnProperty(event))
             return;
