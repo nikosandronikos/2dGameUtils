@@ -93,6 +93,30 @@ export class LinkedList {
         return str;
     }
 
+    iterateFrom(node) {
+        const iter = {};
+        iter[Symbol.iterator] = (function* () {
+            let iterNode = node;
+            while (iterNode) {
+                yield iterNode.data;
+                iterNode = iterNode.next;
+            }
+        });
+        return iter;
+    }
+
+    iterateNodes() {
+        const iter = {};
+        iter[Symbol.iterator] = (function* () {
+            let node = this.head;
+            while (node) {
+                yield node;
+                node = node.next;
+            }
+        }).bind(this);
+        return iter;
+    }
+
     *[Symbol.iterator]() {
         let node = this.head;
         while (node) {
