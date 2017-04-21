@@ -24,7 +24,8 @@ export const Keyboard  = {
         if (evt.keyCode == Keyboard.KEY_UP ||
             evt.keyCode == Keyboard.KEY_DOWN ||
             evt.keyCode == Keyboard.KEY_LEFT ||
-            evt.keyCode == Keyboard.KEY_RIGHT
+            evt.keyCode == Keyboard.KEY_RIGHT ||
+            evt.keyCode == Keyboard.KEY_SPACE
         ) {
             evt.preventDefault();
         }
@@ -42,7 +43,8 @@ export const Keyboard  = {
         if (evt.keyCode == Keyboard.KEY_UP ||
             evt.keyCode == Keyboard.KEY_DOWN ||
             evt.keyCode == Keyboard.KEY_LEFT ||
-            evt.keyCode == Keyboard.KEY_RIGHT
+            evt.keyCode == Keyboard.KEY_RIGHT ||
+            evt.keyCode == Keyboard.KEY_SPACE
         ) {
             evt.preventDefault();
         }
