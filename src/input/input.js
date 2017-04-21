@@ -11,6 +11,7 @@ export const Keyboard  = {
     KEY_LEFT_SHIFT: 16,
     KEY_F:      70,
     KEY_G:      71,
+    KEY_K:      75,
     keys:       [],
     ignoreKeys: [],
     nKeysDown:  0,
