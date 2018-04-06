@@ -15,6 +15,14 @@ export class Vector2d {
         return v;
     }    
 
+    static createFromRadians(theta, length=1) {
+        const v = new Vector2d(
+            length * Math.cos(theta),
+            length * Math.sin(theta)
+        );
+        return v;
+    }
+
     static createFromSum(a, b) {
         const r = new Vector2d(a.x, a.y);
         r.add(b);
@@ -30,9 +38,23 @@ export class Vector2d {
     static createFromPoint(p) {
         return new Vector2d(p.x, p.y);
     }
-
+    
     static createFromPoints(p1, p2) {
         return new Vector2d(p2.x - p1.x, p2.y - p1.y);
+    }
+
+    static createFromLerp(a, b, t) {
+        const lerp = (v0, v1, t) => (1 - t) * v0 + t * v1;
+        return new Vector2d(lerp(a.x, b.x, t), lerp(a.y, b.y, t));
+    }
+    
+    toJSON() {
+        return {
+            x:      this.x,
+            y:      this.y,
+            length: this.length,
+            angle:  this.angleTo(new Vector2d(0,1))
+        };
     }
 
     copy() {
@@ -101,6 +123,13 @@ export class Vector2d {
         return this;
     }
     
+    normalisedCopy() {
+        const v = this.copy();
+        if (v.length == 0) return v;
+        v.divide(v.length);
+        return v;
+    }
+
     add(b) {
         this.x += b.x;
         this.y += b.y;
@@ -124,14 +153,37 @@ export class Vector2d {
         this.y = this.y / scalar;
         return this;
     }
+    
+    rotateAbsRadians(thetaRadians) {
+        const l = this.length;
+        this.x = l * Math.cos(thetaRadians);
+        this.y = l * Math.sin(thetaRadians);
+        return this;
+    }
+
+    rotateRadians(thetaRadians) {
+         const x = this._x;
+         const y = this._y;
+         this.x = x * Math.cos(thetaRadians) - y * Math.sin(thetaRadians);
+         return this;
+    }
 
     rotate(degrees) {
-        const thetaRadians = degrees * (Math.PI / 180);
-        const x = this._x;
-        const y = this._y;
-        this.x = x * Math.cos(thetaRadians) - y * Math.sin(thetaRadians);
-        this.y = y * Math.cos(thetaRadians) + x * Math.sin(thetaRadians);
+        this.rotateRadians(degrees * (Math.PI / 180));
         return this;
+    }
+    
+    angleTo(b) {
+        let angle = Math.atan2(b.y, b.x) - Math.atan2(this.y, this.x);
+        if (angle > Math.PI) return angle - (2 * Math.PI);
+        if (angle < -Math.PI) return angle + (2 * Math.PI);
+        return angle;
+    }
+
+    angleBetween(b) {
+        const lengthProduct = this.length * b.length;
+        if (lengthProduct === 0) return 0;
+        return Math.acos(this.dot(b) / lengthProduct);
     }
 
     angleTo(b) {
