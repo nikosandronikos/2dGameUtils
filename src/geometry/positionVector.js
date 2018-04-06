@@ -13,7 +13,14 @@ export class PositionVector {
             p2.x - p1.x, p2.y - p1.y
         );
     }
-    
+
+    static createFromPointAndAngle(p1, angle, length=1) {
+        const pv = Object.create(PositionVector.prototype);
+        pv.position = new Point(p1.x, p1.y);
+        pv.vector = Vector2d.createFromAngle(angle, length) ;
+        return pv;
+    }
+   
     copy() {
         return new PositionVector(this.position.x, this.position.y, this.vector.x, this.vector.y);
     }
