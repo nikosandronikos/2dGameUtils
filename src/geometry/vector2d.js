@@ -185,10 +185,4 @@ export class Vector2d {
         if (lengthProduct === 0) return 0;
         return Math.acos(this.dot(b) / lengthProduct);
     }
-
-    angleTo(b) {
-        const lengthProduct = this.length * b.length;
-        if (lengthProduct === 0) return 0;
-        return Math.acos(this.dot(b) / lengthProduct);
-    }
 }
