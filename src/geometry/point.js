@@ -19,6 +19,22 @@ export class Point {
         this._y = v;
     }
 
+    copy() {
+         return new Point(this._x, this._y);
+    }
+
+    static centroid(points) {
+        let avgX = 0;
+        let avgY = 0;
+
+        for (let point of points) {
+            avgX += point.x;
+            avgY += point.y;
+        }
+
+        return new Point(avgX / points.length, avgY / points.length);
+    }
+
     distanceTo(p2) {
         const x = p2.x - this._x;
         const y = p2.y - this._y;
