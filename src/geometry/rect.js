@@ -17,22 +17,85 @@ export class Rect {
         this.x2 = x2;
         this.y2 = y2;
     }
+    
+    copy() {
+        return new Rect(this.x1, this.y1, this.x2, this.y2);
+    }
 
     get x() {return this.x1};
     get y() {return this.y1};
     get width() {return this.x2 - this.x1;}
     get height() {return this.y2 - this.y1;}
 
-    expand(xMod, yMod) {
-        this.x1 -= xMod;
-        this.x2 += xMod;
-        this.y1 -= yMod;
-        this.y2 += yMod;
+    setAs(otherRect) {
+        this.x1 = otherRect.x1;
+        this.y1 = otherRect.y1;
+        this.x2 = otherRect.x2;
+        this.y2 = otherRect.y2;
+        return this;
+    }
+    
+    expand(size) {
+        this.expandX(size);
+        this.expandY(size);
+        return this;
+    }
+
+    expandX(size, sizeRight=undefined) {
+        this.x1 -= size;
+        this.x2 += (sizeRight === undefined ? size : sizeRight);
+        return this;
+    }
+
+    expandY(size) {
+        this.y1 -= size;
+        this.y2 += size;
+        return this;
+    }
+    
+    contract(size, minWidth=0, minHeight=0) {
+        this.contractX(size, minWidth);
+        this.contractY(size, minHeight);
+        return this;
+    }
+
+    contractX(size, minWidth=0) {
+        let width = this.width;
+        if (width - (size * 2) < minWidth) {
+            const maxContract = Math.max(0, (width - minWidth) / 2);
+            this.x1 += maxContract;
+            this.x2 -= maxContract;
+        } else {
+            this.x1 += size;
+            this.x2 -= size;
+        }
+        return this;
+    }
+
+    contractY(size, minHeight=0) {
+        let height = this.height;
+        if (height - (size * 2) < minHeight) {
+            const maxContract = Math.max(0, (height - minHeight) / 2);
+            this.y1 += maxContract;
+            this.y2 -= maxContract;
+        } else {
+            this.y1 += size;
+            this.y2 -= size;
+        }
         return this;
     }
 
     pointIn(x, y) {
         return x >= this.x1 && x <= this.x2 && y >= this.y1 && y <= this.y2;
+    }
+
+    vertices(origin={x: 0, y: 0}) {
+        return [
+            new Point(this.x1 - origin.x, this.y1 - origin.y),
+            new Point(this.x2 - origin.x, this.y1 - origin.y),
+            new Point(this.x2 - origin.x, this.y2 - origin.y),
+            new Point(this.x1 - origin.x, this.y2 - origin.y)
+        ];
     }
 
     quarter() {
