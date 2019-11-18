@@ -9,8 +9,8 @@
 // * Pop the highest priority element off the queue
 // * Remove any arbitrary element 
 export class PriorityQueue {
-    // cmp_fn compares a to b and is like strcmp
-    constructor(cmp_fn = (a,b) => a < b)
+    // cmp_fn compares a to b and is like strcmp. Default order is low to high.
+    constructor(cmp_fn = (a,b) => b - a)
     {
         this.data = [];
         this.cmp_fn = cmp_fn;
